@@ -48,7 +48,7 @@ namespace ofxRpiWs281x {
                 return ret._ret;
             }
         private:
-            ReturnValue(ws2811_return_t ret) : _ret(ret);
+            ReturnValue(ws2811_return_t ret) : _ret(ret) {};
             ws2811_return_t _ret;
     };
 
