@@ -14,7 +14,7 @@ namespace ofxRpiWs281x {
 		((0xff & (unsigned char) c.b));
     }
 
-    std::pair<LedStrip*, ReturnValue> CreateLedStrip(LedStripConfiguration conf) {
+    std::pair<LedStrip*, ReturnValue> LedStrip::CreateLedStrip(LedStripConfiguration conf) {
         LedStrip *strip = new LedStrip(conf);
         return std::make_pair(strip, ReturnValue(WS2811_SUCCESS));
     }
