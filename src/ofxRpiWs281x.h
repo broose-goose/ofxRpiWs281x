@@ -48,8 +48,8 @@ namespace ofxRpiWs281x {
             int Ret() {
                 return (int) _ret;
             }
-        protected:
-            friend LedStrip;
+        // protected:
+            // friend LedStrip;
             ReturnValue(ws2811_return_t ret) : _ret(ret) {};
         private:
             ws2811_return_t _ret;
@@ -97,7 +97,8 @@ namespace ofxRpiWs281x {
             void SetColorStrip(ofColor);
             // void SetColorAll(ofColor);
 
-        protected:
+        // protected:
+
             LedStrip(LedStripConfiguration);
 
         private:
