@@ -6,10 +6,15 @@
 #include <iostream>
 #include <utility>
 
+#include "rpi_ws281x/clk.h"
+#include "rpi_ws281x/gpio.h"
+#include "rpi_ws281x/dma.h"
+#include "rpi_ws281x/pwm.h"
+
+#include "rpi_ws281x/ws2811.h"
+
 #include "ofColor.h"
 
-struct ws2811_t;
-enum ws2811_return_t;
 
 namespace ofxRpiWs281x {
 
