@@ -53,8 +53,8 @@ namespace ofxRpiWs281x {
     }
 
     ReturnValue LedStrip::Teardown() {
-        ws2811_return_t ret = ws2811_fini(&_strip);
-        return ReturnValue(ret);
+        ws2811_fini(&_strip);
+        return ReturnValue(WS2811_SUCCESS);
     }
 
 
