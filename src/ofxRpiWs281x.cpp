@@ -23,11 +23,11 @@ namespace ofxRpiWs281x {
         _channel = new ws2811_channel_t();
         ws2811_channel_t dummy_channel;
 
-        _channel.gpionum = (int)conf.gpio_pin;
-        _channel.count = conf.led_count;
-        _channel.strip_type = (int)conf.strip_type;
-        _channel.brightness = conf.brightness;
-        _channel.invert = conf.invert;
+        _channel->gpionum = (int)conf.gpio_pin;
+        _channel->count = conf.led_count;
+        _channel->strip_type = (int)conf.strip_type;
+        _channel->brightness = conf.brightness;
+        _channel->invert = conf.invert;
 
         ws2811_t *strip_obj = new ws2811_t();
         strip_obj->freq = conf.frequency;
