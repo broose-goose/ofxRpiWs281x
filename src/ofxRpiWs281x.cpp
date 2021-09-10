@@ -62,7 +62,7 @@ namespace ofxRpiWs281x {
 
 
     void LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
-        ws2811_channel_t &channel = _strip._is_channel_0
+        ws2811_channel_t &channel = _is_channel_0
             ? _strip.channel[0]
             : _strip.channel[1]
         ;
@@ -75,7 +75,7 @@ namespace ofxRpiWs281x {
 
     void LedStrip::SetColorStrip(ofColor c) {
         uint32_t c_out = wrgbFromOfColor(c);
-        ws2811_channel_t &channel = _strip._is_channel_0
+        ws2811_channel_t &channel = _is_channel_0
             ? _strip.channel[0]
             : _strip.channel[1]
         ;
