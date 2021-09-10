@@ -20,23 +20,26 @@ namespace ofxRpiWs281x {
     }
 
     LedStrip::LedStrip(LedStripConfiguration conf) {
+        ws2811_channel_t main_channel = { 0 };
         ws2811_channel_t dummy_channel = { 0 };
 
-        _channel.gpionum = (int)conf.gpio_pin;
-        _channel.count = conf.led_count;
-        _channel.strip_type = (int)conf.strip_type;
-        _channel.brightness = conf.brightness;
-        _channel.invert = conf.invert;
+        main_channel.gpionum = (int)conf.gpio_pin;
+        main_channel.count = conf.led_count;
+        main_channel.strip_type = (int)conf.strip_type;
+        main_channel.brightness = conf.brightness;
+        main_channel.invert = conf.invert;
 
         ws2811_t strip_obj = ws2811_t();
         strip_obj.freq = conf.frequency;
         strip_obj.dmanum = conf.dma_number;
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
-            strip_obj.channel[0] = _channel;
+            _is_channel_0 = true;
+            strip_obj.channel[0] = main_channel;
             strip_obj.channel[1] = dummy_channel;
         } else {
+            _is_channel_0 = false;
             strip_obj.channel[0] = dummy_channel;
-            strip_obj.channel[1] = _channel;
+            strip_obj.channel[1] = main_channel;
         }
 
         _strip = strip_obj;
@@ -59,9 +62,12 @@ namespace ofxRpiWs281x {
 
 
     void LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
-        if (pixel < _channel.count) {
-            _strip.channel[0].leds[0] = wrgbFromOfColor(c);
-            // _channel.leds[pixel] = wrgbFromOfColor(c);
+        ws2811_channel_t &channel = _strip._is_channel_0
+            ? _strip.channel[0]
+            : _strip.channel[1]
+        ;
+        if (pixel < channel.count) {
+            channel.leds[0] = wrgbFromOfColor(c);
         } else {
             std::cout << "Pixel out of range" << std::endl;
         }
@@ -69,8 +75,12 @@ namespace ofxRpiWs281x {
 
     void LedStrip::SetColorStrip(ofColor c) {
         uint32_t c_out = wrgbFromOfColor(c);
-        for (int i = 0; i < _channel.count; i++) {
-            _channel.leds[i] = c_out;
+        ws2811_channel_t &channel = _strip._is_channel_0
+            ? _strip.channel[0]
+            : _strip.channel[1]
+        ;
+        for (int i = 0; i < channel.count; i++) {
+            channel.leds[i] = c_out;
         }
     }
 
