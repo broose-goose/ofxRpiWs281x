@@ -49,7 +49,7 @@ namespace ofxRpiWs281x {
             }
         private:
             ReturnValue(ws2811_return_t ret) : _ret(ret);
-            ws2811_return_t _ret
+            ws2811_return_t _ret;
     };
 
     struct LedStripConfiguration {
