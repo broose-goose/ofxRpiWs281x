@@ -59,7 +59,7 @@ namespace ofxRpiWs281x {
     }
 
 
-    LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
+    void LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
         if (pixel < _channel->count) {
             _channel->leds[pixel] = wrgbFromOfColor(c);
         } else {
@@ -67,7 +67,7 @@ namespace ofxRpiWs281x {
         }
     }
 
-    LedStrip::SetColorStrip(ofColor c) {
+    void LedStrip::SetColorStrip(ofColor c) {
         uint32_t c_out = wrgbFromOfColor(c);
         for (int i = 0; i < _channel->count; i++) {
             _channel->leds[i] = c_out;
