@@ -33,11 +33,11 @@ namespace ofxRpiWs281x {
         strip_obj->freq = conf.frequency;
         strip_obj->dmanum = conf.dma_number;
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
-            strip_obj->channel[0] = _channel;
+            strip_obj->channel[0] = *_channel;
             strip_obj->channel[1] = dummy_channel;
         } else {
             strip_obj->channel[0] = dummy_channel;
-            strip_obj->channel[1] = _channel;
+            strip_obj->channel[1] = *_channel;
         }
 
         _strip = strip_obj;
