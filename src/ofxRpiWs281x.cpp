@@ -60,7 +60,8 @@ namespace ofxRpiWs281x {
 
     void LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
         if (pixel < _channel.count) {
-            _channel.leds[pixel] = wrgbFromOfColor(c);
+            _strip.channel[0].leds[0] = 0x00200000;
+            // _channel.leds[pixel] = wrgbFromOfColor(c);
         } else {
             std::cout << "Pixel out of range" << std::endl;
         }
