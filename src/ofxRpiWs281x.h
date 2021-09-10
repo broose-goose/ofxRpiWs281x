@@ -60,7 +60,7 @@ namespace ofxRpiWs281x {
         LedStripConfiguration() {
             gpio_pin = GpioPins::GPIO_18;
             led_count = 1;
-            strip_type = StripType::WS2811_GRB;
+            strip_type = StripType::WS2811_RGB;
             invert = false;
             brightness = 255;
 
