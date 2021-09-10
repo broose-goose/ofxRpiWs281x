@@ -41,7 +41,7 @@ namespace ofxRpiWs281x {
         SK6812_BGRW = 0x18000810,
     };
 
-    class LedStrip;
+    // class LedStrip;
     class ReturnValue {
         public:
             bool isFailure();
