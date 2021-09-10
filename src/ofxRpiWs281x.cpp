@@ -20,7 +20,7 @@ namespace ofxRpiWs281x {
     }
 
     LedStrip::LedStrip(LedStripConfiguration conf) {
-        ws2811_channel_t dummy_channel;
+        ws2811_channel_t dummy_channel = { 0 };
 
         _channel.gpionum = (int)conf.gpio_pin;
         _channel.count = conf.led_count;
@@ -28,39 +28,39 @@ namespace ofxRpiWs281x {
         _channel.brightness = conf.brightness;
         _channel.invert = conf.invert;
 
-        ws2811_t *strip_obj = new ws2811_t();
-        strip_obj->freq = conf.frequency;
-        strip_obj->dmanum = conf.dma_number;
+        ws2811_t strip_obj = ws2811_t();
+        strip_obj.freq = conf.frequency;
+        strip_obj.dmanum = conf.dma_number;
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
-            strip_obj->channel[0] = _channel;
-            strip_obj->channel[1] = dummy_channel;
+            strip_obj.channel[0] = _channel;
+            strip_obj.channel[1] = dummy_channel;
         } else {
-            strip_obj->channel[0] = dummy_channel;
-            strip_obj->channel[1] = _channel;
+            strip_obj.channel[0] = dummy_channel;
+            strip_obj.channel[1] = _channel;
         }
 
         _strip = strip_obj;
     }
 
     ReturnValue LedStrip::Initialize() {
-        ws2811_return_t ret = ws2811_init(_strip);
+        ws2811_return_t ret = ws2811_init(&_strip);
         return ReturnValue(ret);
     }
 
     ReturnValue LedStrip::Render() {
-        ws2811_return_t ret = ws2811_render(_strip);
+        ws2811_return_t ret = ws2811_render(&_strip);
         return ReturnValue(ret);
     }
 
     ReturnValue LedStrip::Teardown() {
-        ws2811_return_t ret = ws2811_render(_strip);
+        ws2811_return_t ret = ws2811_fini(&_strip);
         return ReturnValue(ret);
     }
 
 
     void LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
         if (pixel < _channel.count) {
-            _strip->channel[0].leds[0] = 0x00200000;
+            //_strip->channel[0].leds[0] = 0x00200000;
             // _channel.leds[pixel] = wrgbFromOfColor(c);
         } else {
             std::cout << "Pixel out of range" << std::endl;

@@ -106,7 +106,7 @@ namespace ofxRpiWs281x {
             static uint32_t wrgbFromOfColor(ofColor);
 
             // static std::vector<LedStrip*> _strips;
-            ws2811_t *_strip;
+            ws2811_t _strip;
             ws2811_channel_t _channel;
     };
 
