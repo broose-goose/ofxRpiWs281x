@@ -107,7 +107,7 @@ namespace ofxRpiWs281x {
 
             // static std::vector<LedStrip*> _strips;
             ws2811_t *_strip;
-            ws2811_channel_t *_channel;
+            ws2811_channel_t _channel;
     };
 
 }
