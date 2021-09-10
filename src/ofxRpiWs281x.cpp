@@ -1,13 +1,6 @@
 
 #include "ofxRpiWs281x.h"
 
-#include "rpi_ws281x/clk.h"
-#include "rpi_ws281x/gpio.h"
-#include "rpi_ws281x/dma.h"
-#include "rpi_ws281x/pwm.h"
-
-#include "rpi_ws281x/ws2811.h"
-
 namespace ofxRpiWs281x {
 
     bool ReturnValue::isFailure() {
@@ -15,7 +8,7 @@ namespace ofxRpiWs281x {
     }
 
     uint32_t LedStrip::wrgbFromOfColor(ofColor c) {
-        ((0xff & (unsigned char) c.a) << 24) |
+        return ((0xff & (unsigned char) c.a) << 24) |
         ((0xff & (unsigned char) c.r) << 16) |
 		((0xff & (unsigned char) c.g) << 8) |
 		((0xff & (unsigned char) c.b));
