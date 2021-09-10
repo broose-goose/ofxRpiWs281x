@@ -45,7 +45,7 @@ namespace ofxRpiWs281x {
         public:
             bool isFailure();
             friend std::ostream &operator<<(std::ostream &os, const ReturnValue& ret) {
-                return _ret;
+                return ret._ret;
             }
         private:
             ReturnValue(ws2811_return_t ret) : _ret(ret);
