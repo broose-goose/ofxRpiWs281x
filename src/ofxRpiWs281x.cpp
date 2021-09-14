@@ -75,7 +75,7 @@ namespace ofxRpiWs281x {
     ReturnValue LedStrip::Initialize() {
         if (_is_initialized) {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
-            return;
+            return ReturnValue(0);
         }
         _is_initialized = true;
 #ifdef __arm__
@@ -94,8 +94,8 @@ namespace ofxRpiWs281x {
 
     ReturnValue LedStrip::Render() {
         if (!_is_initialized) {
-            std::cout << "LedStrip, Render: nothing to do..." << std::endl;
-            return;
+            std::cout << "LedStrip, Render: can't render shit..." << std::endl;
+            return ReturnValue(-1);
         }
 #ifdef __arm__
         for (auto it = _pixels.begin(); it != _pixels.end(); ++it) {
@@ -118,7 +118,7 @@ namespace ofxRpiWs281x {
     ReturnValue LedStrip::Teardown() {
         if (!_is_initialized) {
             std::cout << "LedStrip, Teardown: nothing to do..." << std::endl;
-            return;
+            return ReturnValue(0);
         }
         _is_initialized = false;
 #ifdef __arm__
