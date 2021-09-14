@@ -113,11 +113,15 @@ namespace ofxRpiWs281x {
             void SetColorPixel(ofColor c, uint16_t pixel);
             void SetColorStrip(ofColor);
 
+            ofColor* GetPixel(uint16_t pixel);
+
         private:
 
             LedStrip(LedStripConfiguration);
 
             uint32_t wrgbFromOfColor(ofColor);
+
+            bool _is_initialized;
 
             GpioPins _gpio_pin;
             uint16_t _led_count;
@@ -126,6 +130,8 @@ namespace ofxRpiWs281x {
             uint8_t _green_mask;
             uint8_t _blue_mask;
             uint8_t _white_mask;
+
+            std::vector<ofColor*> _pixels;
 
 #ifdef __arm__
             ws2811_t _strip;
