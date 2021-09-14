@@ -6,7 +6,7 @@
 #include <iostream>
 #include <utility>
 
-#ifdef TARGET_OPENGLES
+#ifdef __arm__
 
 #include "rpi_ws281x/clk.h"
 #include "rpi_ws281x/gpio.h"
