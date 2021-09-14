@@ -48,7 +48,7 @@ namespace ofxRpiWs281x {
     ReturnValue LedStrip::Initialize() {
         ws2811_return_t ret = ws2811_init(&_strip);
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
-            _channel = &_strip.channel[0]
+            _channel = &_strip.channel[0];
         }
         return ReturnValue(ret);
     }
