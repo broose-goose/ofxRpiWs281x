@@ -119,7 +119,7 @@ namespace ofxRpiWs281x {
 
             LedStrip(LedStripConfiguration);
 
-            uint32_t wrgbFromOfColor(ofColor);
+            uint32_t wrgbFromOfColor(ofColor*);
 
             bool _is_initialized;
 
