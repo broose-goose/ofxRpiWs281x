@@ -69,6 +69,8 @@ namespace ofxRpiWs281x {
         for (uint16_t pix = 0; pix < _led_count; pix++) {
             _pixels.push_back(new ofColor(0, 0, 0));
         }
+
+        std::cout << "Pixel count: " << _pixels.size() << std::endl;
     }
 
 
