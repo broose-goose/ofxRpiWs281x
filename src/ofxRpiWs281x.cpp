@@ -148,7 +148,8 @@ namespace ofxRpiWs281x {
     ofColor& LedStrip::GetPixel(uint16_t pixel) {
         if (pixel >= _led_count) {
             std::cout << "LedStrip, GetPixel: Pixel out of range, returning dummy pixel" << std::endl;
-            return ofColor(0,0,0);
+            ofColor dummy_pixel(0,0,0);
+            return dummy_pixel;
         } else {
             return _pixels.at(pixel);
         }
