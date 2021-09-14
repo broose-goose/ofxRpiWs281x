@@ -12,10 +12,10 @@ namespace ofxRpiWs281x {
 
 
     uint32_t LedStrip::wrgbFromOfColor(ofColor c) {
-        return ((0xff & (unsigned char) c.a) << 24) |
-        ((0xff & (unsigned char) c.r) << 16) |
-		((0xff & (unsigned char) c.g) << 8) |
-		((0xff & (unsigned char) c.b));
+        return ((_white_mask & (unsigned char) c.a) << 24) |
+        ((_red_mask & (unsigned char) c.r) << 16) |
+		((_green_mask & (unsigned char) c.g) << 8) |
+		((_blue_mask & (unsigned char) c.b));
     }
 
 
@@ -55,6 +55,11 @@ namespace ofxRpiWs281x {
 #endif
         _led_count = conf.led_count;
         _gpio_pin = conf.gpio_pin;
+
+        _red_mask = conf.red_mask;
+        _green_mask = conf.green_mask;
+        _blue_mask = conf.blue_mask;
+        _white_mask = conf.white_mask;
     }
 
 
