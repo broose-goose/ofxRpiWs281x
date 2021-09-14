@@ -53,8 +53,15 @@ namespace ofxRpiWs281x {
                 return (int) _ret;
             }
         private:
+
+#ifdef __arm__
             ReturnValue(ws2811_return_t ret) : _ret(ret) {};
             ws2811_return_t _ret;
+#else
+            ReturnValue(int ret) : _ret(ret) {};
+            int _ret;
+#endif
+
             friend class LedStrip;
     };
 
@@ -101,10 +108,13 @@ namespace ofxRpiWs281x {
             LedStrip(LedStripConfiguration);
 
             static uint32_t wrgbFromOfColor(ofColor);
-
-            ws2811_t _strip;
             GpioPins _gpio_pin;
+            uint16_t _led_count;
+
+#ifdef __arm__
+            ws2811_t _strip;
             ws2811_channel_t *_channel;
+#endif
     };
 
 }
