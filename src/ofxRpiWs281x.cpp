@@ -64,9 +64,9 @@ namespace ofxRpiWs281x {
         _blue_mask = conf.blue_mask;
         _white_mask = conf.white_mask;
 
-        _pixels = std::vector<ofColor*>{};
+        std::vector<ofColor*> _pixels;
         for (uint16_t pix = 0; pix < _led_count; pix++) {
-            _pixels.push_back( new ofColor(0, 0, 0));
+            _pixels.push_back(new ofColor(0, 0, 0));
         }
     }
 
