@@ -32,6 +32,7 @@ namespace ofxRpiWs281x {
         ws2811_t strip_obj = ws2811_t();
         strip_obj.freq = conf.frequency;
         strip_obj.dmanum = conf.dma_number;
+        _gpio_pin = conf.gpio_pin;
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
             _is_channel_0 = true;
             strip_obj.channel[0] = main_channel;
@@ -47,7 +48,7 @@ namespace ofxRpiWs281x {
 
     ReturnValue LedStrip::Initialize() {
         ws2811_return_t ret = ws2811_init(&_strip);
-        if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
+        if (_gpio_pin == GpioPins::GPIO_18 || _gpio_pin == GpioPins::GPIO_12) {
             _channel = &_strip.channel[0];
         }
         return ReturnValue(ret);
