@@ -105,7 +105,7 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Render: can't render shit..." << std::endl;
             return ReturnValue(WS2811_ERROR_GPIO_INIT);
         }
-        auto channel = _is_channel_0 ? _strip->channel[0] : _strip->channel[1];
+        auto channel = _is_channel_0 ? _strip.channel[0] : _strip.channel[1];
         for (uint16_t index = 0; index < _led_count; index++) {
             channel.leds[index] = wrgbFromOfColor(_pixels.at(index));
         }
