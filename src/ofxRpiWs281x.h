@@ -6,9 +6,6 @@
 #include <iostream>
 #include <utility>
 
-
-#define TARGET_OPENGLES
-
 #ifdef TARGET_OPENGLES
 
 #include "rpi_ws281x/clk.h"
@@ -107,6 +104,7 @@ namespace ofxRpiWs281x {
             static uint32_t wrgbFromOfColor(ofColor);
 
             ws2811_t _strip;
+            GpioPins _gpio_pin;
             ws2811_channel_t *_channel;
     };
 

@@ -34,11 +34,9 @@ namespace ofxRpiWs281x {
         strip_obj.dmanum = conf.dma_number;
         _gpio_pin = conf.gpio_pin;
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
-            _is_channel_0 = true;
             strip_obj.channel[0] = main_channel;
             strip_obj.channel[1] = dummy_channel;
         } else {
-            _is_channel_0 = false;
             strip_obj.channel[0] = dummy_channel;
             strip_obj.channel[1] = main_channel;
         }
