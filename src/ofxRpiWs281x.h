@@ -45,16 +45,17 @@ namespace ofxRpiWs281x {
         SK6812_BGRW = 0x18000810,
     };
 
-    // class LedStrip;
+    class LedStrip;
     class ReturnValue {
         public:
             bool isFailure();
             int Ret() {
                 return (int) _ret;
             }
-            ReturnValue(ws2811_return_t ret) : _ret(ret) {};
         private:
+            ReturnValue(ws2811_return_t ret) : _ret(ret) {};
             ws2811_return_t _ret;
+            friend class LedStrip;
     };
 
     struct LedStripConfiguration {
@@ -95,8 +96,6 @@ namespace ofxRpiWs281x {
             void SetColorPixel(ofColor c, uint16_t pixel);
             void SetColorStrip(ofColor);
 
-        // protected:
-        // need to figure this one out
             LedStrip(LedStripConfiguration);
 
         private:
