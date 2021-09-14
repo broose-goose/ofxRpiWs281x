@@ -113,6 +113,8 @@ namespace ofxRpiWs281x {
             void SetColorPixel(const ofColor &c, uint16_t pixel);
             void SetColorStrip(const ofColor &c);
 
+            int StripCount() { return _led_count; }
+
             ofColor* GetPixel(uint16_t pixel);
 
         private:
