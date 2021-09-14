@@ -6,7 +6,7 @@
 #include <iostream>
 #include <utility>
 
-#ifdef TARGET_OPENGLES
+// #ifdef TARGET_OPENGLES
 
 #include "rpi_ws281x/clk.h"
 #include "rpi_ws281x/gpio.h"
@@ -15,7 +15,7 @@
 
 #include "rpi_ws281x/ws2811.h"
 
-#endif
+// #endif
 
 #include "ofColor.h"
 
