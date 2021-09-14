@@ -65,13 +65,10 @@ namespace ofxRpiWs281x {
         _green_mask = conf.green_mask;
         _blue_mask = conf.blue_mask;
         _white_mask = conf.white_mask;
-
-        std::cout << _pixels.size() << std::endl;
-
+        
         for (uint16_t pix = 0; pix < _led_count; pix++) {
             _pixels.push_back(ofColor(0, 0, 0));
         }
-        std::cout << _pixels.size() << std::endl;
     }
 
 
@@ -176,7 +173,7 @@ namespace ofxRpiWs281x {
 
 
     void LedStrip::SetColorStrip(const ofColor &c) {
-        for (auto pixel : _pixels) {
+        for (auto &pixel : _pixels) {
             pixel = c;
         }
     }
