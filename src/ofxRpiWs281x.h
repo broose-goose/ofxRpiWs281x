@@ -6,12 +6,19 @@
 #include <iostream>
 #include <utility>
 
+
+#define TARGET_OPENGLES
+
+#ifdef TARGET_OPENGLES
+
 #include "rpi_ws281x/clk.h"
 #include "rpi_ws281x/gpio.h"
 #include "rpi_ws281x/dma.h"
 #include "rpi_ws281x/pwm.h"
 
 #include "rpi_ws281x/ws2811.h"
+
+#endif
 
 #include "ofColor.h"
 
@@ -48,8 +55,6 @@ namespace ofxRpiWs281x {
             int Ret() {
                 return (int) _ret;
             }
-        // protected:
-            // friend LedStrip;
             ReturnValue(ws2811_return_t ret) : _ret(ret) {};
         private:
             ws2811_return_t _ret;
@@ -87,27 +92,22 @@ namespace ofxRpiWs281x {
             static std::pair<LedStrip*, ReturnValue> CreateLedStrip(LedStripConfiguration);
 
             ReturnValue Initialize();
-            // static ReturnValue InitializeAll();
             ReturnValue Render();
-            // static ReturnValue RenderAll();
             ReturnValue Teardown();
-            // static ReturnValue TeardownAll();
 
             void SetColorPixel(ofColor c, uint16_t pixel);
             void SetColorStrip(ofColor);
-            // void SetColorAll(ofColor);
 
         // protected:
-
+        // need to figure this one out
             LedStrip(LedStripConfiguration);
 
         private:
 
             static uint32_t wrgbFromOfColor(ofColor);
 
-            // static std::vector<LedStrip*> _strips;
             ws2811_t _strip;
-            bool _is_channel_0;
+            ws2811_channel_t *_channel;
     };
 
 }

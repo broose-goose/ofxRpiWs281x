@@ -47,6 +47,9 @@ namespace ofxRpiWs281x {
 
     ReturnValue LedStrip::Initialize() {
         ws2811_return_t ret = ws2811_init(&_strip);
+        if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
+            _channel = &_strip.channel[0]
+        }
         return ReturnValue(ret);
     }
 
@@ -62,12 +65,8 @@ namespace ofxRpiWs281x {
 
 
     void LedStrip::SetColorPixel(ofColor c, uint16_t pixel) {
-        ws2811_channel_t &channel = _is_channel_0
-            ? _strip.channel[0]
-            : _strip.channel[1]
-        ;
-        if (pixel < channel.count) {
-            channel.leds[0] = wrgbFromOfColor(c);
+        if (pixel < _channel->count) {
+            _channel->leds[0] = wrgbFromOfColor(c);
         } else {
             std::cout << "Pixel out of range" << std::endl;
         }
@@ -75,12 +74,8 @@ namespace ofxRpiWs281x {
 
     void LedStrip::SetColorStrip(ofColor c) {
         uint32_t c_out = wrgbFromOfColor(c);
-        ws2811_channel_t &channel = _is_channel_0
-            ? _strip.channel[0]
-            : _strip.channel[1]
-        ;
-        for (int i = 0; i < channel.count; i++) {
-            channel.leds[i] = c_out;
+        for (int i = 0; i < _channel->count; i++) {
+            _channel->leds[i] = c_out;
         }
     }
 
