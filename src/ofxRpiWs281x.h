@@ -76,6 +76,11 @@ namespace ofxRpiWs281x {
 
             dma_number = 10;
             frequency = 800000;
+            
+            red_mask = 255;
+            green_mask = 255;
+            blue_mask = 255;
+            white_mask = 255;
         }
         GpioPins gpio_pin;
         uint16_t led_count;
@@ -84,6 +89,11 @@ namespace ofxRpiWs281x {
         uint8_t brightness;
         uint8_t dma_number; // cannot be 0, 1, 2, 3, 6, 7; must be smaller than 15
         uint32_t frequency; // usually 800000 (800kHz)
+
+        uint8_t red_mask;
+        uint8_t green_mask;
+        uint8_t blue_mask;
+        uint8_t white_mask;
     };
 
     class LedStrip {
@@ -107,9 +117,15 @@ namespace ofxRpiWs281x {
 
             LedStrip(LedStripConfiguration);
 
-            static uint32_t wrgbFromOfColor(ofColor);
+            uint32_t wrgbFromOfColor(ofColor);
+
             GpioPins _gpio_pin;
             uint16_t _led_count;
+
+            uint8_t _red_mask;
+            uint8_t _green_mask;
+            uint8_t _blue_mask;
+            uint8_t _white_mask;
 
 #ifdef __arm__
             ws2811_t _strip;
