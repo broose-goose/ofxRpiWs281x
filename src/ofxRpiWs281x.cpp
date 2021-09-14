@@ -53,6 +53,9 @@ namespace ofxRpiWs281x {
 #else
         std::cout << "LedStrip: Not on rpi, dummy strip" << std::endl;
 #endif
+
+        _is_initialized = false;
+
         _led_count = conf.led_count;
         _gpio_pin = conf.gpio_pin;
 
@@ -74,6 +77,7 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
             return;
         }
+        _is_initialized = true;
 #ifdef __arm__
         ws2811_return_t ret = ws2811_init(&_strip);
         if (_gpio_pin == GpioPins::GPIO_18 || _gpio_pin == GpioPins::GPIO_12) {
