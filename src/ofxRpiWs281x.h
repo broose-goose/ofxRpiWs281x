@@ -6,7 +6,6 @@
 #include <iostream>
 #include <utility>
 
-
 #ifdef __arm__
 
 #include "rpi_ws281x/clk.h"
@@ -136,7 +135,7 @@ namespace ofxRpiWs281x {
 
 #ifdef __arm__
             ws2811_t _strip;
-            ws2811_channel_t *_channel;
+            bool _is_channel_0;
 #endif
     };
 

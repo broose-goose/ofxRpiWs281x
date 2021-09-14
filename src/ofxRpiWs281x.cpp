@@ -44,9 +44,11 @@ namespace ofxRpiWs281x {
         if (conf.gpio_pin == GpioPins::GPIO_18 || conf.gpio_pin == GpioPins::GPIO_12) {
             strip_obj.channel[0] = main_channel;
             strip_obj.channel[1] = dummy_channel;
+            _is_channel_0 = true;
         } else {
             strip_obj.channel[0] = dummy_channel;
             strip_obj.channel[1] = main_channel;
+            _is_channel_0 = false;
         }
 
         _strip = strip_obj;
@@ -77,19 +79,19 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
             return ReturnValue(WS2811_SUCCESS);
         }
-        _is_initialized = true;
         ws2811_return_t ret = ws2811_init(&_strip);
-        if (_gpio_pin == GpioPins::GPIO_18 || _gpio_pin == GpioPins::GPIO_12) {
-            _channel = &_strip.channel[0];
+        if (ret !== WS2811_SUCCESS) {
+            return ReturnValue(ret)
         }
-        return ReturnValue(ret);
+        _is_initialized = true;
+        return ReturnValue(WS2811_SUCCESS);
 #else
         if (_is_initialized) {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
             return ReturnValue(0);
         }
-        _is_initialized = true;
         std::cout << "LedStrip: Initialize" << std::endl;
+        _is_initialized = true;
         return ReturnValue(0);
 #endif
     }
@@ -103,8 +105,9 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Render: can't render shit..." << std::endl;
             return ReturnValue(WS2811_ERROR_GPIO_INIT);
         }
+        auto channel = _is_channel_0 ? _strip->channel[0] : _strip->channel[1];
         for (uint16_t index = 0; index < _led_count; index++) {
-            _channel->leds[index] = wrgbFromOfColor(_pixels.at(index));
+            channel.leds[index] = wrgbFromOfColor(_pixels.at(index));
         }
         ws2811_return_t ret = ws2811_render(&_strip);
         return ReturnValue(ret);
