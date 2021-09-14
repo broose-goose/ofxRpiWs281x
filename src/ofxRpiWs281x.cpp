@@ -80,8 +80,8 @@ namespace ofxRpiWs281x {
             return ReturnValue(WS2811_SUCCESS);
         }
         ws2811_return_t ret = ws2811_init(&_strip);
-        if (ret !== WS2811_SUCCESS) {
-            return ReturnValue(ret)
+        if (ret != WS2811_SUCCESS) {
+            return ReturnValue(ret);
         }
         _is_initialized = true;
         return ReturnValue(WS2811_SUCCESS);
