@@ -103,10 +103,8 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Render: can't render shit..." << std::endl;
             return ReturnValue(WS2811_ERROR_GPIO_INIT);
         }
-        for (auto it = _pixels.begin(); it != _pixels.end(); ++it) {
-            int index = std::distance(_pixels.begin(), it);
-            auto pixel = *it;
-            _channel->leds[index] = wrgbFromOfColor(pixel);
+        for (uint16_t index = 0; index < _led_count; index++) {
+            _channel->leds[index] = wrgbFromOfColor(_pixels.at(index));
         }
         ws2811_return_t ret = ws2811_render(&_strip);
         return ReturnValue(ret);
@@ -148,7 +146,7 @@ namespace ofxRpiWs281x {
     ofColor& LedStrip::GetPixel(uint16_t pixel) {
         if (pixel >= _led_count) {
             std::cout << "LedStrip, GetPixel: Pixel out of range, returning dummy pixel" << std::endl;
-            ofColor dummy_pixel(0,0,0);
+            static ofColor dummy_pixel(0,0,0);
             return dummy_pixel;
         } else {
             return _pixels.at(pixel);
@@ -161,7 +159,7 @@ namespace ofxRpiWs281x {
         if (pixel >= _led_count) {
             std::cout << "LedStrip, SetColorPixel: Pixel out of range" << std::endl;
         } else {
-            _pixels.at(pixel).set(c);
+            _pixels.at(pixel) = set(c);
         }
     }
 
@@ -169,7 +167,7 @@ namespace ofxRpiWs281x {
 
     void LedStrip::SetColorStrip(const ofColor &c) {
         for (auto pixel : _pixels) {
-            pixel.set(c);
+            pixel = c;
         }
     }
 
