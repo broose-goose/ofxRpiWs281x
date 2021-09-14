@@ -65,7 +65,7 @@ namespace ofxRpiWs281x {
         _green_mask = conf.green_mask;
         _blue_mask = conf.blue_mask;
         _white_mask = conf.white_mask;
-        
+
         std::cout << _pixels.size() << std::endl;
 
         for (uint16_t pix = 0; pix < _led_count; pix++) {
@@ -104,7 +104,7 @@ namespace ofxRpiWs281x {
     ReturnValue LedStrip::Render() {
 
         for (auto &pix : _pixels) {
-            std::cout << (int)pix.r << ", " (int)pix.g << ", " (int) pix.b << std::endl;
+            std::cout << (int)pix.r << ", " << (int)pix.g << ", " (int) pix.b << std::endl;
         }
 
 #ifdef __arm__
