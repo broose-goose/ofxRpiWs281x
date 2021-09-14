@@ -73,31 +73,36 @@ namespace ofxRpiWs281x {
 
 
     ReturnValue LedStrip::Initialize() {
+#ifdef __arm__
         if (_is_initialized) {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
-            return ReturnValue(0);
+            return ReturnValue(WS2811_SUCCESS);
         }
-        _is_initialized = true;
-#ifdef __arm__
         ws2811_return_t ret = ws2811_init(&_strip);
         if (_gpio_pin == GpioPins::GPIO_18 || _gpio_pin == GpioPins::GPIO_12) {
             _channel = &_strip.channel[0];
         }
         return ReturnValue(ret);
 #else
+        if (_is_initialized) {
+            std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
+            return ReturnValue(0);
+        }
         std::cout << "LedStrip: Initialize" << std::endl;
         return ReturnValue(0);
 #endif
+        _is_initialized = true;
     }
 
 
 
     ReturnValue LedStrip::Render() {
+
+#ifdef __arm__
         if (!_is_initialized) {
             std::cout << "LedStrip, Render: can't render shit..." << std::endl;
-            return ReturnValue(-1);
+            return ReturnValue(WS2811_ERROR_GPIO_INIT);
         }
-#ifdef __arm__
         for (auto it = _pixels.begin(); it != _pixels.end(); ++it) {
             int index = std::distance(aVector.begin(), it);
             auto pixel = *it;
@@ -106,6 +111,10 @@ namespace ofxRpiWs281x {
         ws2811_return_t ret = ws2811_render(&_strip);
         return ReturnValue(ret);
 #else
+        if (!_is_initialized) {
+            std::cout << "LedStrip, Render: can't render shit..." << std::endl;
+            return ReturnValue(-1);
+        }
 #ifdef DEBUG
         std::cout << "LedStrip: Render" << std::endl;
 #endif
@@ -116,18 +125,22 @@ namespace ofxRpiWs281x {
 
 
     ReturnValue LedStrip::Teardown() {
+#ifdef __arm__
+        if (!_is_initialized) {
+            std::cout << "LedStrip, Teardown: nothing to do..." << std::endl;
+            return ReturnValue(WS2811_SUCCESS);
+        }
+        ws2811_fini(&_strip);
+        return ReturnValue(WS2811_SUCCESS);
+#else
         if (!_is_initialized) {
             std::cout << "LedStrip, Teardown: nothing to do..." << std::endl;
             return ReturnValue(0);
         }
-        _is_initialized = false;
-#ifdef __arm__
-        ws2811_fini(&_strip);
-        return ReturnValue(WS2811_SUCCESS);
-#else
         std::cout << "LedStrip: Teardown" << std::endl;
         return ReturnValue(0);
 #endif
+        _is_initialized = false;
     }
 
 
