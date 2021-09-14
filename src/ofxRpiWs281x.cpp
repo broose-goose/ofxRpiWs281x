@@ -100,7 +100,7 @@ namespace ofxRpiWs281x {
     ReturnValue LedStrip::Render() {
 
         for (auto pix : _pixels) {
-            std::cout << pix->v << std::endl;
+            std::cout << pix->r << ", " << pix->g << ", " << pix->b << std::endl;
         }
 
 #ifdef __arm__
