@@ -131,7 +131,7 @@ namespace ofxRpiWs281x {
             uint8_t _blue_mask;
             uint8_t _white_mask;
 
-            std::vector<ofColor> _pixels;
+            std::vector<ofColor> _pixels {};
 
 #ifdef __arm__
             ws2811_t _strip;
