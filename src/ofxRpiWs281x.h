@@ -96,9 +96,9 @@ namespace ofxRpiWs281x {
             void SetColorPixel(ofColor c, uint16_t pixel);
             void SetColorStrip(ofColor);
 
-            LedStrip(LedStripConfiguration);
-
         private:
+
+            LedStrip(LedStripConfiguration);
 
             static uint32_t wrgbFromOfColor(ofColor);
 
