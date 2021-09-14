@@ -78,6 +78,7 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
             return ReturnValue(WS2811_SUCCESS);
         }
+        _is_initialized = true;
         ws2811_return_t ret = ws2811_init(&_strip);
         if (_gpio_pin == GpioPins::GPIO_18 || _gpio_pin == GpioPins::GPIO_12) {
             _channel = &_strip.channel[0];
@@ -88,10 +89,10 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Initialize: nothing to do..." << std::endl;
             return ReturnValue(0);
         }
+        _is_initialized = true;
         std::cout << "LedStrip: Initialize" << std::endl;
         return ReturnValue(0);
 #endif
-        _is_initialized = true;
     }
 
 
@@ -130,6 +131,7 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Teardown: nothing to do..." << std::endl;
             return ReturnValue(WS2811_SUCCESS);
         }
+        _is_initialized = false;
         ws2811_fini(&_strip);
         return ReturnValue(WS2811_SUCCESS);
 #else
@@ -137,10 +139,10 @@ namespace ofxRpiWs281x {
             std::cout << "LedStrip, Teardown: nothing to do..." << std::endl;
             return ReturnValue(0);
         }
+        _is_initialized = false;
         std::cout << "LedStrip: Teardown" << std::endl;
         return ReturnValue(0);
 #endif
-        _is_initialized = false;
     }
 
 
