@@ -70,7 +70,6 @@ namespace ofxRpiWs281x {
             _pixels.push_back(new ofColor(0, 0, 0));
         }
 
-        std::cout << "Pixel count: " << _pixels.size() << std::endl;
     }
 
 
