@@ -159,7 +159,7 @@ namespace ofxRpiWs281x {
         if (pixel >= _led_count) {
             std::cout << "LedStrip, SetColorPixel: Pixel out of range" << std::endl;
         } else {
-            _pixels.at(pixel) = set(c);
+            _pixels.at(pixel) = c;
         }
     }
 
