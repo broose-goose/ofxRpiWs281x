@@ -11,11 +11,11 @@ namespace ofxRpiWs281x {
 
 
 
-    uint32_t LedStrip::wrgbFromOfColor(ofColor *c) {
-        return ((_white_mask & (unsigned char) c->a) << 24) |
-        ((_red_mask & (unsigned char) c->r) << 16) |
-		((_green_mask & (unsigned char) c->g) << 8) |
-		((_blue_mask & (unsigned char) c->b));
+    uint32_t LedStrip::wrgbFromOfColor(const ofColor &c) {
+        return ((_white_mask & (unsigned char) c.a) << 24) |
+        ((_red_mask & (unsigned char) c.r) << 16) |
+		((_green_mask & (unsigned char) c.g) << 8) |
+		((_blue_mask & (unsigned char) c.b));
     }
 
 
@@ -65,7 +65,7 @@ namespace ofxRpiWs281x {
         _white_mask = conf.white_mask;
 
         for (uint16_t pix = 0; pix < _led_count; pix++) {
-            _pixels.push_back(new ofColor(0, 0, 0));
+            _pixels.push_back(ofColor(0, 0, 0));
         }
     }
 
@@ -145,10 +145,10 @@ namespace ofxRpiWs281x {
     }
 
 
-    ofColor* LedStrip::GetPixel(uint16_t pixel) {
+    ofColor& LedStrip::GetPixel(uint16_t pixel) {
         if (pixel >= _led_count) {
             std::cout << "LedStrip, GetPixel: Pixel out of range, returning dummy pixel" << std::endl;
-            return new ofColor(0,0,0);
+            return ofColor(0,0,0);
         } else {
             return _pixels.at(pixel);
         }
@@ -160,7 +160,7 @@ namespace ofxRpiWs281x {
         if (pixel >= _led_count) {
             std::cout << "LedStrip, SetColorPixel: Pixel out of range" << std::endl;
         } else {
-            _pixels.at(pixel)->set(c);
+            _pixels.at(pixel).set(c);
         }
     }
 
@@ -168,7 +168,7 @@ namespace ofxRpiWs281x {
 
     void LedStrip::SetColorStrip(const ofColor &c) {
         for (auto pixel : _pixels) {
-            pixel->set(c);
+            pixel.set(c);
         }
     }
 
