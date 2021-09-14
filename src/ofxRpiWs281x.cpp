@@ -100,6 +100,10 @@ namespace ofxRpiWs281x {
 
     ReturnValue LedStrip::Render() {
 
+        for (auto &pix : _pixels) {
+            std::cout << (int)pix.r << ", " (int)pix.g << ", " (int) pix.b << std::endl;
+        }
+
 #ifdef __arm__
         if (!_is_initialized) {
             std::cout << "LedStrip, Render: can't render shit..." << std::endl;
