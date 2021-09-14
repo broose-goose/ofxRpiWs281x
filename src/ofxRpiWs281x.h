@@ -111,8 +111,8 @@ namespace ofxRpiWs281x {
             ReturnValue Render();
             ReturnValue Teardown();
 
-            void SetColorPixel(ofColor c, uint16_t pixel);
-            void SetColorStrip(ofColor);
+            void SetColorPixel(const ofColor &c, uint16_t pixel);
+            void SetColorStrip(const ofColor &c);
 
             ofColor* GetPixel(uint16_t pixel);
 

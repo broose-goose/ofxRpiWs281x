@@ -104,7 +104,7 @@ namespace ofxRpiWs281x {
             return ReturnValue(WS2811_ERROR_GPIO_INIT);
         }
         for (auto it = _pixels.begin(); it != _pixels.end(); ++it) {
-            int index = std::distance(aVector.begin(), it);
+            int index = std::distance(_pixels.begin(), it);
             auto pixel = *it;
             _channel->leds[index] = wrgbFromOfColor(pixel);
         }
