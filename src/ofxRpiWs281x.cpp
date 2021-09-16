@@ -72,7 +72,7 @@ namespace ofxRpiWs281x {
                 std::cout << i << std::endl;
                 const uint32_t gmd = std::pow(i, conf.gamma);
                 std::cout << gmd << std::endl;
-                const uint16_t gmd_norm = (uint16_t) std::round(gmd / float(gmd_max));
+                const uint16_t gmd_norm = (uint16_t) std::round(gmd / float(gmd_max) * 255);
                 std::cout << gmd_norm << std::endl;
                 const uint8_t gmd_corr = (uint8_t) std::min((uint16_t)255, gmd_norm);
                 std::cout << gmd_corr << std::endl;
