@@ -22,7 +22,7 @@ namespace ofxRpiWs281x {
             const double white_red = r * 255.0 / _white_ct.r;
             const double white_green = g * 255.0 / _white_ct.g;
             const double white_blue = b * 255.0 / _white_ct.b;
-            const double min_white = std::min(white_value_for_red, std::min(white_value_for_blue, white_value_for_green));
+            const double min_white = std::min(white_red, std::min(white_green, white_blue));
             w = std::min((uint8_t) 255, (uint8_t) std::round(min_white));
             r = (uint8_t)(r - min_white * _white_ct.r / 255.0);
             g = (uint8_t)(g - min_white * _white_ct.g / 255.0);
