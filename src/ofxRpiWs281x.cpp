@@ -70,14 +70,15 @@ namespace ofxRpiWs281x {
 
         if (conf.gamma != 1.0) {
             const uint32_t gmd_max = std::pow(255, conf.gamma);
-            for (uint8_t i = 0; i < 256; i++) {
+            for (uint16_t i = 0; i < 256; i++) {
                 const uint32_t gmd = std::pow(i, conf.gamma);
                 const uint16_t gmd_norm = (uint16_t) std::round(gmd / float(gmd_max));
                 const uint8_t gmd_corr = (uint8_t) std::min((uint16_t)255, gmd_norm);
                 _gamma_table[i] = gmd_corr;
             }
         } else {
-            for (uint8_t i = 0; i < 256; i++) {
+            for (uint16_t i = 0; i < 256; i++) {
+                std::cout << i << std::endl;
                 _gamma_table[i] = i;
             }
         }
