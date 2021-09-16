@@ -66,8 +66,6 @@ namespace ofxRpiWs281x {
         _blue_mask = conf.blue_mask;
         _white_mask = conf.white_mask;
 
-        std::cout << "Do i..." << std::endl;
-
         if (conf.gamma != 1.0) {
             const uint32_t gmd_max = std::pow(255, conf.gamma);
             for (uint16_t i = 0; i < 256; i++) {
@@ -78,12 +76,9 @@ namespace ofxRpiWs281x {
             }
         } else {
             for (uint16_t i = 0; i < 256; i++) {
-                std::cout << i << std::endl;
                 _gamma_table[i] = i;
             }
         }
-
-        std::cout << "get past..." << std::endl;
 
         _white_approx = conf.white_approx;
         _white_ct = conf.white_ct;
