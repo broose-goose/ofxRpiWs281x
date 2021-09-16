@@ -48,7 +48,7 @@ namespace ofxRpiWs281x {
     enum class WhiteApproximation: int {
         NONE = 0,
         SIMPLE_WHITE = 1,
-    }
+    };
 
     class LedStrip;
     class ReturnValue {
