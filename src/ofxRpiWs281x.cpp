@@ -13,10 +13,10 @@ namespace ofxRpiWs281x {
 
     uint32_t LedStrip::wrgbFromOfColor(ofColor *c) {
         if 
-        return _gamma_table[((_white_mask & (unsigned char) c->a) << 24)] |
-        _gamma_table[((_red_mask & (unsigned char) c->r) << 16)] |
-		_gamma_table[((_green_mask & (unsigned char) c->g) << 8)] |
-		_gamma_table[((_blue_mask & (unsigned char) c->b))];
+        return (_gamma_table[_white_mask & (unsigned char) c->a] << 24)] |
+        (_gamma_table[_red_mask & (unsigned char) c->r] << 16)] |
+		(_gamma_table[_green_mask & (unsigned char) c->g] << 8)] |
+		(_gamma_table[_blue_mask & (unsigned char) c->b]);
     }
 
 

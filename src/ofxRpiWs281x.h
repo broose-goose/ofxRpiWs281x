@@ -87,7 +87,7 @@ namespace ofxRpiWs281x {
             blue_mask = 255;
             white_mask = 255;
 
-            gamma = 1.2;
+            gamma = 1.0;
 
             white_approx = WhiteApproximation::NONE;
 
@@ -149,9 +149,8 @@ namespace ofxRpiWs281x {
             uint8_t _blue_mask;
             uint8_t _white_mask;
 
-            float _gamma;
             uint8_t _gamma_table[256];
-            
+
             WhiteApproximation _white_approx;
             ofColor _white_ct;
 
