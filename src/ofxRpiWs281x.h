@@ -149,7 +149,7 @@ namespace ofxRpiWs281x {
             uint8_t _blue_mask;
             uint8_t _white_mask;
 
-            uint8_t _gamma_table[256];
+            uint8_t _gamma_table[256] = {0};
 
             WhiteApproximation _white_approx;
             ofColor _white_ct;
