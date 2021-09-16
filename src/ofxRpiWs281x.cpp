@@ -12,10 +12,27 @@ namespace ofxRpiWs281x {
 
 
     uint32_t LedStrip::wrgbFromOfColor(ofColor *c) {
-        return (_gamma_table[_white_mask & (unsigned char) c->a] << 24) |
-        (_gamma_table[_red_mask & (unsigned char) c->r] << 16) |
-		(_gamma_table[_green_mask & (unsigned char) c->g] << 8) |
-		(_gamma_table[_blue_mask & (unsigned char) c->b]);
+
+        uint8_t r = c->r;
+        uint8_t g = c->g;
+        uint8_t b = c->b;
+        uint8_t w = c->a;
+
+        if (_white_approx == WhiteApproximation::SIMPLE_WHITE) {
+            const double white_red = r * 255.0 / _white_ct.r;
+            const double white_green = g * 255.0 / _white_ct.g;
+            const double white_blue = b * 255.0 / _white_ct.b;
+            const double min_white = std::min(white_value_for_red, std::min(white_value_for_blue, white_value_for_green));
+            w = std::min((uint8_t) 255, (uint8_t) std::round(min_white));
+            r = (uint8_t)(r - min_white * _white_ct.r / 255.0);
+            g = (uint8_t)(g - min_white * _white_ct.g / 255.0);
+            b = (uint8_t)(b - min_white * _white_ct.b / 255.0);
+        }
+
+        return (_gamma_table[_white_mask & w] << 24) |
+            (_gamma_table[_red_mask & r] << 16) |
+		    (_gamma_table[_green_mask & g] << 8) |
+	        (_gamma_table[_blue_mask & b]);
     }
 
 
@@ -69,13 +86,9 @@ namespace ofxRpiWs281x {
         if (conf.gamma != 1.0) {
             const uint32_t gmd_max = std::pow(255, conf.gamma);
             for (uint16_t i = 0; i < 256; i++) {
-                std::cout << i << std::endl;
                 const uint32_t gmd = std::pow(i, conf.gamma);
-                std::cout << gmd << std::endl;
                 const uint16_t gmd_norm = (uint16_t) std::round(gmd / float(gmd_max) * 255);
-                std::cout << gmd_norm << std::endl;
                 const uint8_t gmd_corr = (uint8_t) std::min((uint16_t)255, gmd_norm);
-                std::cout << gmd_corr << std::endl;
                 _gamma_table[i] = gmd_corr;
             }
         } else {
