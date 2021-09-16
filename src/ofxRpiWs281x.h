@@ -26,7 +26,7 @@ namespace ofxRpiWs281x {
         GPIO_12 = 12,
         GPIO_18 = 18,
         GPIO_13 = 13,
-        GPIO_19 = 19
+        GPIO_19 = 19,
     };
 
     enum class StripType: int {
@@ -44,6 +44,11 @@ namespace ofxRpiWs281x {
         SK6812_BRGW = 0x18001008,
         SK6812_BGRW = 0x18000810,
     };
+
+    enum class WhiteApproximation: int {
+        NONE = 0,
+        SIMPLE_WHITE = 1,
+    }
 
     class LedStrip;
     class ReturnValue {
@@ -81,6 +86,14 @@ namespace ofxRpiWs281x {
             green_mask = 255;
             blue_mask = 255;
             white_mask = 255;
+
+            gamma = 1.2;
+
+            white_approx = WhiteApproximation::NONE;
+
+            // 4500K
+            // https://andi-siess.de/rgb-to-color-temperature/
+            white_ct =  ofColor(255, 219, 186);
         }
         GpioPins gpio_pin;
         uint16_t led_count;
@@ -94,6 +107,9 @@ namespace ofxRpiWs281x {
         uint8_t green_mask;
         uint8_t blue_mask;
         uint8_t white_mask;
+        float gamma;
+        WhiteApproximation white_approx;
+        ofColor white_ct;
     };
 
     class LedStrip {
@@ -132,6 +148,12 @@ namespace ofxRpiWs281x {
             uint8_t _green_mask;
             uint8_t _blue_mask;
             uint8_t _white_mask;
+
+            float _gamma;
+            uint8_t _gamma_table[256];
+            
+            WhiteApproximation _white_approx;
+            ofColor _white_ct;
 
             std::vector<ofColor*> _pixels {};
 

@@ -12,10 +12,11 @@ namespace ofxRpiWs281x {
 
 
     uint32_t LedStrip::wrgbFromOfColor(ofColor *c) {
-        return ((_white_mask & (unsigned char) c->a) << 24) |
-        ((_red_mask & (unsigned char) c->r) << 16) |
-		((_green_mask & (unsigned char) c->g) << 8) |
-		((_blue_mask & (unsigned char) c->b));
+        if 
+        return _gamma_table[((_white_mask & (unsigned char) c->a) << 24)] |
+        _gamma_table[((_red_mask & (unsigned char) c->r) << 16)] |
+		_gamma_table[((_green_mask & (unsigned char) c->g) << 8)] |
+		_gamma_table[((_blue_mask & (unsigned char) c->b))];
     }
 
 
@@ -65,6 +66,23 @@ namespace ofxRpiWs281x {
         _green_mask = conf.green_mask;
         _blue_mask = conf.blue_mask;
         _white_mask = conf.white_mask;
+
+        if (conf.gamma != 1.0) {
+            const uint32_t gmd_max = std::pow(255, conf.gamma);
+            for (uint8_t i = 0; i < 256; i++) {
+                const uint32_t gmd = std::pow(i, conf.gamma);
+                const uint16_t gmd_norm = (uint16_t) std::round(gmd / float(gmd_max));
+                const uint8_t gmd_corr = (uint8_t) std::min((uint16_t)255, gmd_norm);
+                _gamma_table[i] = gmd_corr;
+            }
+        } else {
+            for (uint8_t i = 0; i < 256; i++) {
+                _gamma_table[i] = i;
+            }
+        }
+
+        _white_approx = conf.white_approx;
+        _white_ct = conf.white_ct;
         
         for (uint16_t pix = 0; pix < _led_count; pix++) {
             _pixels.push_back(new ofColor(0, 0, 0));
