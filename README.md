@@ -156,7 +156,7 @@ void ofApp::draw(){
 
 ```
 
-I'm going to throw a super complicated example in the examples folder if you want more details on how to implement things this way. It lets you abstract things away, and is super nice to work with once you get the hang of it.
+I'm going to throw a super complicated example in the examples folder if you want more details on how to implement things this way. Its an actual program I wrote that does like three kinds of mapping, can act as an artnet receiver that I use with [Mad Mapper](https://madmapper.com/) for quick tests, and outputs to custom PCBs I desgined. Hold on while I flex a little... In all seriousness though, doing things this way lets you abstract stuff away and not worry about coupling, which makes it super nice to work with once you get the hang of it.
 
 
 ## Dependencies
