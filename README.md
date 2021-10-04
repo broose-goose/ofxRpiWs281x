@@ -105,7 +105,7 @@ My preferred  usage, which I'm going to foist on you is as follows.
 
 We can do this because, for each LED on the strip, we keep a local ofColor object that we write to the rpi_ws281x library objects when we call the render function. We are on a Pi, we have clock cycles to burn, and this makes things more explicit. W.e pixels are there after the update call will be pushed during the draw call. That lets us do multiple operations to the lights during the update, and other things I'm too tired to remember as benifits... 
 
-Besides, if you are already using OF, you're probably doing some complex LED mapping that requires hire levels of abstraction. Look at me, thinking of other reasons I made decisions :D
+Besides, if you are already using OF, you're probably doing some complex LED mapping that requires higher levels of abstraction. Look at me, thinking of other reasons I made decisions :D
 
 It ends up looking like this
 
