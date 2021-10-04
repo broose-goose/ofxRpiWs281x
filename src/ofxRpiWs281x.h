@@ -112,7 +112,12 @@ namespace ofxRpiWs281x {
         ofColor white_ct;
     };
 
-    class LedStrip {
+    class LedOutputGenerator {
+    public:
+        virtual ofColor* GetPixel(uint16_t pixel) = 0;
+    };
+
+    class LedStrip: public LedOutputGenerator {
 
         public:
             LedStrip() = delete;
