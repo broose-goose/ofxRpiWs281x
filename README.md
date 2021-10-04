@@ -14,16 +14,16 @@ This library exposes 2 main objects; a configuration object, and an LED strip ob
 The configuration object is created with some sane defaults that can be changed like so.
 
 
-'''
+```
 auto config = ofxRpiWs281x::LedStripConfiguration();
 config.gamma = 1.2;
 config.strip_type = ofxRpiWs281x::StripType::WS2811_GRB;
 config.led_count = 100;
-'''
+```
 
 You can then instantiate an LED strip with it. Right now, I'm pretty sure it will only work for one LED strip, but it could be fixed to support 2 led strips running on the separate PWM channels the Pi provides (see [RPi Hardware PWM Timers](https://jumpnowtek.com/rpi/Using-the-Raspberry-Pi-Hardware-PWM-timers.html)).
 
-'''
+```
 auto led_strip_and_ret_value = ofxRpiWs281x::LedStrip::CreateLedStrip(config);
 auto create_ret_value = led_strip_and_ret_value.second;
 if (create_ret_value.isFailure()) {
@@ -31,13 +31,13 @@ if (create_ret_value.isFailure()) {
 	exit(create_ret_value.Ret());
 }
 auto led_strip = led_strip_and_ret_value.first;
-'''
+```
 
 Notice how the CreateLedStrip function actually returns a tupple; a pointer to the LED object, as well as a return value. I program a good deal in golang, and it felt obscene not to...
 
 Anyways, now that we have our led strip, we need to initialize it (sets up the actual driver on the Pi), set some pixels, write to the strip itself, and tear it down those walls.
 
-'''
+```
 auto init_ret_value = led_strip->Initialize();
 if (init_ret_value.isFailure()) {
 	std::cout << "I COULDN'T INITIALIZE SHIT D:" << std::endl;
@@ -53,7 +53,7 @@ if (render_ret_value.isFailure()) {
 }
 
 led_strip->Teardown();
-'''
+```
 
 And you're now a super 1337 LED pro!
 
@@ -61,7 +61,7 @@ And you're now a super 1337 LED pro!
 
 You can set the value of individual pixels, calling the SetColorPixel for a LED position, like so:
 
-'''
+```
 ofColor Wheel(int pos) {
     if (pos < 85) {
         return ofColor(pos * 3, 255 - pos * 3, 0);
@@ -93,7 +93,7 @@ void ofApp::update(){
   }
   std::this_thread::sleep_for(std::chrono::milliseconds(20));
 }
-'''
+```
 
 But I don't recommend it. Then you gotta be passin that strip object everywhere, it enforces coupling, etc.
 
@@ -109,7 +109,7 @@ Besides, if you are already using OF, you're probably doing some complex LED map
 
 It ends up looking like this
 
-'''
+```
 void ofApp::setup(){
 	strip_ = POINTER_TO_STRIP_WE_SHOWED_HOW_TO_CREATE_ABOVE
 
@@ -154,7 +154,7 @@ void ofApp::draw(){
 	}
 }
 
-'''
+```
 
 I'm going to throw a super complicated example in the examples folder if you want more details on how to implement things this way. It lets you abstract things away, and is super nice to work with once you get the hang of it.
 
